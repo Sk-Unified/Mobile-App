@@ -1,42 +1,75 @@
-import { forwardRef } from 'react';
-import { Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
+import { Pressable, Text } from 'react-native';
 
-type ButtonProps = {
-  title?: string;
-} & TouchableOpacityProps;
+import { LinearGradient } from 'expo-linear-gradient';
+import { useUnistyles } from 'react-native-unistyles';
 
-export const Button = forwardRef<View, ButtonProps>(({ title, ...touchableProps }, ref) => {
+import { Icon } from './Icon';
+import { ButtonStyles } from 'styles/components/button';
+import PhosphorIcons from 'utils/PhosphorIcons';
+
+// type declaration for the component
+type buttonProps = {
+  text?: string;
+  variant?: 'primary' | 'secondary' | 'outlined' | 'danger';
+  leftIcon?: keyof typeof PhosphorIcons;
+  rightIcon?: keyof typeof PhosphorIcons;
+  onPress?: () => void;
+};
+// 𝌞 Button Contents
+const ButtonContents = ({
+  text = 'Button',
+  variant = 'primary',
+  rightIcon,
+  leftIcon,
+}: buttonProps) => {
+  ButtonStyles.useVariants({
+    color: variant,
+  });
+
+  const { theme } = useUnistyles();
+
+  const iconColorMap = {
+    primary: theme.button.primary.icon,
+    danger: theme.button.danger.icon,
+    secondary: theme.button.secondary.icon,
+    outlined: theme.button.outlined.icon,
+  };
+
+  const iconColor = iconColorMap[variant];
+
   return (
-    <TouchableOpacity ref={ref} {...touchableProps} style={[styles.button, touchableProps.style]}>
-      <Text style={styles.buttonText}>{title}</Text>
-    </TouchableOpacity>
+    <>
+      {leftIcon && <Icon color={iconColor} name={leftIcon} size={24} weight="duotone" />}
+      <Text style={ButtonStyles.buttonText}>{text}</Text>
+      {rightIcon && <Icon color={iconColor} name={rightIcon} size={24} weight="duotone" />}
+    </>
   );
-});
+};
 
-Button.displayName = 'Button';
+// Main Button Component
+const Button = ({ onPress, variant = 'primary', text, rightIcon, leftIcon }: buttonProps) => {
+  const { theme } = useUnistyles();
 
-const styles = StyleSheet.create((theme) => ({
-  button: {
-    alignItems: 'center',
-    backgroundColor: theme.colors.cornflowerBlue,
-    borderRadius: 24,
-    elevation: 5,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      height: 2,
-      width: 0,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-  buttonText: {
-    color: theme.colors.background,
-    fontSize: 16,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-}));
+  ButtonStyles.useVariants({
+    borderColor: variant,
+  });
+
+  const gradientMap: Record<string, [string, string]> = {
+    primary: [theme.button.primary.bgLight, theme.button.primary.bgDark],
+    danger: [theme.button.danger.bgLight, theme.button.danger.bgDark],
+    secondary: [theme.button.secondary.background, theme.button.secondary.background],
+    outlined: ['transparent', 'transparent'],
+  };
+
+  const gradientColors = gradientMap[variant];
+
+  return (
+    <Pressable onPress={onPress}>
+      <LinearGradient colors={gradientColors} style={ButtonStyles.buttonContainer}>
+        <ButtonContents text={text} variant={variant} rightIcon={rightIcon} leftIcon={leftIcon} />
+      </LinearGradient>
+    </Pressable>
+  );
+};
+
+export default Button;

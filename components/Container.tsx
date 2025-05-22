@@ -1,15 +1,31 @@
-import React from 'react';
-import { View } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
+import React from "react";
 
-export const Container = ({ children }: { children: React.ReactNode }) => {
-  return <View style={styles.container}>{children}</View>;
+import { View } from "react-native";
+
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet } from "react-native-unistyles";
+
+type containerProps = {
+  children: React.ReactNode;
 };
 
-const styles = StyleSheet.create((theme, rt) => ({
+const Container = ({ children }: containerProps) => {
+  return (
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <SafeAreaView>{children}</SafeAreaView>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create((theme) => ({
   container: {
     flex: 1,
-    paddingBottom: rt.insets.bottom,
     backgroundColor: theme.colors.background,
+    justifyContent: "center",
+    alignItems: "center",
   },
 }));
+
+export default Container;
