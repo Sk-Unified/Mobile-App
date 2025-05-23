@@ -1,5 +1,5 @@
-import { Colors } from "../colors";
-import { Typography } from "../typography";
+import { Colors } from '../colors';
+import { Typography } from '../typography';
 
 export const darkTheme = {
   colors: {
@@ -9,9 +9,9 @@ export const darkTheme = {
   font: {
     colors: {
       description: Colors.background.light,
-      placeholder: 'rgba(252, 243, 255, 0.5)'
+      placeholder: 'rgba(252, 243, 255, 0.5)',
     },
-    ...Typography
+    ...Typography,
   },
   button: {
     primary: {
@@ -39,8 +39,18 @@ export const darkTheme = {
   },
 
   input: {
-    background: 'rgba(255, 255, 255, 0.1)',
-    outline: 'rgba(252, 243, 255, 1)'
+    default: {
+      background: 'rgba(255, 255, 255, 0.1)',
+      outline: 'rgba(252, 243, 255, 1)',
+    },
+    success: {
+      background: 'rgba(71, 252, 138, 0.1)',
+      outline: 'rgba(34, 197, 94, 1)',
+    },
+    error: {
+      background: 'rgba(239, 68, 68, 0.1)',
+      outline: 'rgba(239, 68, 68, 1)',
+    },
   },
 
   margins: {

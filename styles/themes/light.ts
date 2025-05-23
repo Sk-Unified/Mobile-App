@@ -1,5 +1,5 @@
-import { Colors } from "../colors";
-import { Typography } from "../typography";
+import { Colors } from '../colors';
+import { Typography } from '../typography';
 
 export const lightTheme = {
   colors: {
@@ -9,9 +9,9 @@ export const lightTheme = {
   font: {
     colors: {
       description: Colors.background.dark,
-      placeholder: 'rgba(17, 0, 22, 0.5)'
+      placeholder: 'rgba(17, 0, 22, 0.5)',
     },
-    ...Typography
+    ...Typography,
   },
   button: {
     primary: {
@@ -39,8 +39,18 @@ export const lightTheme = {
   },
 
   input: {
-    background: 'rgba(0, 0, 0, 0.1)',
-    outline: 'rgba(17, 0, 22, 1)'
+    default: {
+      background: 'rgba(0, 0, 0, 0.1)',
+      outline: 'rgba(17, 0, 22, 1)',
+    },
+    success: {
+      background: 'rgba(34, 197, 94, 0.1)',
+      outline: 'rgba(34, 197, 94, 1)',
+    },
+    error: {
+      background: 'rgba(239, 68, 68, 0.1)',
+      outline: 'rgba(239, 68, 68, 1)',
+    },
   },
   margins: {
     sm: 2,

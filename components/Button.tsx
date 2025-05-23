@@ -1,4 +1,4 @@
-import { Pressable, Text } from 'react-native';
+import { Pressable, StyleProp, Text, ViewStyle } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { useUnistyles } from 'react-native-unistyles';
@@ -14,6 +14,7 @@ type buttonProps = {
   leftIcon?: keyof typeof PhosphorIcons;
   rightIcon?: keyof typeof PhosphorIcons;
   onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
 };
 // 𝌞 Button Contents
 const ButtonContents = ({
@@ -47,7 +48,14 @@ const ButtonContents = ({
 };
 
 // Main Button Component
-const Button = ({ onPress, variant = 'primary', text, rightIcon, leftIcon }: buttonProps) => {
+const Button = ({
+  onPress,
+  variant = 'primary',
+  text,
+  rightIcon,
+  leftIcon,
+  style,
+}: buttonProps) => {
   const { theme } = useUnistyles();
 
   ButtonStyles.useVariants({
@@ -65,7 +73,7 @@ const Button = ({ onPress, variant = 'primary', text, rightIcon, leftIcon }: but
 
   return (
     <Pressable onPress={onPress}>
-      <LinearGradient colors={gradientColors} style={ButtonStyles.buttonContainer}>
+      <LinearGradient colors={gradientColors} style={[ButtonStyles.buttonContainer, style]}>
         <ButtonContents text={text} variant={variant} rightIcon={rightIcon} leftIcon={leftIcon} />
       </LinearGradient>
     </Pressable>

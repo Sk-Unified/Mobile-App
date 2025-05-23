@@ -11,6 +11,7 @@ type InputProps = {
   icon?: keyof typeof PhosphorIcons;
   keyboardType?: TextInputProps['keyboardType'];
   description?: string;
+  variant?: 'primary' | 'success' | 'error';
 };
 
 // Input component
@@ -20,8 +21,13 @@ const Input = ({
   description,
   icon,
   keyboardType = 'default',
+  variant = 'primary',
 }: InputProps) => {
   const { theme } = useUnistyles();
+
+  styles.useVariants({
+    color: variant,
+  });
 
   return (
     <View style={styles.container}>
@@ -71,21 +77,50 @@ const styles = StyleSheet.create((theme) => ({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
     gap: 12,
     height: 56,
     width: '100%',
-    backgroundColor: theme.input.background,
     borderWidth: 1,
-    borderColor: theme.input.outline,
     borderRadius: 8,
+
+    variants: {
+      color: {
+        primary: {
+          backgroundColor: theme.input.default.background,
+          borderColor: theme.input.default.outline,
+        },
+        success: {
+          backgroundColor: theme.input.success.background,
+          borderColor: theme.input.success.outline,
+        },
+        error: {
+          backgroundColor: theme.input.error.background,
+          borderColor: theme.input.error.outline,
+        },
+      },
+    },
   },
 
   description: {
     fontFamily: theme.font.body.fontFamily,
     fontSize: theme.font.body.fontSize,
-    color: theme.font.colors.description,
-    opacity: 0.5,
+    variants: {
+      color: {
+        primary: {
+          color: theme.input.default.outline,
+          opacity: 0.5,
+        },
+        success: {
+          color: theme.input.success.outline,
+          opacity: 1,
+        },
+        error: {
+          color: theme.input.error.outline,
+          opacity: 1,
+        },
+      },
+    },
   },
 }));
 
